@@ -1,0 +1,40 @@
+language: julia
+os:
+  - linux
+julia:
+  - 0.6
+notifications:
+  email: false
+git:
+  depth: 99999999
+cache:
+  timeout: 1000
+  directories:
+    - downloads
+env:
+  global:
+    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+    - BINARYBUILDER_AUTOMATIC_APPLE=false
+sudo: required
+
+# Before anything else, get the latest versions of things
+before_script:
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
+
+script:
+  - julia build_tarballs.jl
+
+
+deploy:
+    provider: releases
+    api_key:
+        # Note; this api_key is only valid for ViralBShah/ArpackBuilder; you need
+        # to make your own: https://docs.travis-ci.com/user/deployment/releases/
+        secure: ohJG2TKUde9UiZb658XfSnKDuJoJyywD0cp7ht6HDZI9yCJcDgR+NyQ1o+uVaOo0sBC5P0Ct7mTjeaUoWhlHzPTM303SIpSl7oIMiG23zkHZPKjBmhAMcjemJWYJ54GpnUMn9kpP4Ip+Olt2DTV2PsAepLQqpLy2xqWN32NWKlCZy8kIOUiJCP4L6xKQwq+AKhfW1P2N/DPvf8eukaL9Y/XznmnQHJtGzvjhzhfQqTK+Hr1xQIYvQ5LvI92bKhId4GaxUWcNwEY3eLjKPGC+9BqgUEaLlvh/mLPecgozot4/70DnPXfW1q1dfn7kSGGAhXvBbenL3htOvdOA+tmAS9XSYVSqoYzKKBOwvUn00ynweCCJEKVGbglxXCVs6sdaAz6TY17MdsMGXEpHdNP34BV4SfAOKle+qglwcVHQRQTxh8xS4odV3f3Rq/AfcZhS7gHfpDw6Mp6pyHXARxWafCNvA2QxGG/vyN2HgunYNgIwStCFx24XpAChtcQTItj8FoLSWzIlDu5E99ZVXoWsUVLlxJIQO+t501cqvRePqjoXtQnfxkE3wghMWSlPp84rnkbw3FoRbf9kyDRtcz5GJV4MgoqD3aXtP68ccDvTKPboB2oge31ptjW0N8vcAowAXRPaUiWWhLSPiVUe9oyfYK5uE0ROVGFdXsXmy7J3IPU=
+    file_glob: true
+    file: products/*
+    skip_cleanup: true
+    on:
+        repo: ViralBShah/ArpackBuilder
+        tags: true
