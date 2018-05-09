@@ -24,7 +24,7 @@ else
 
 fi
 
-make -j install
+make install
 
 """
 
