@@ -23,7 +23,7 @@ before_script:
   - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
 
 script:
-  - julia build_tarballs.jl
+  - julia --verbose build_tarballs.jl x86_64-apple-darwin14
 
 
 deploy:
