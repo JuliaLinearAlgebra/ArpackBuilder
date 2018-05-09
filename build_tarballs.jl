@@ -40,14 +40,14 @@ platforms = [
 #    BinaryProvider.Linux(:x86_64, :musl, :blank_abi),
 #    BinaryProvider.Linux(:aarch64, :musl, :blank_abi),
 #    BinaryProvider.Linux(:armv7l, :musl, :eabihf),
-    BinaryProvider.MacOS(:x86_64, :blank_libc, :blank_abi),
+#    BinaryProvider.MacOS(:x86_64, :blank_libc, :blank_abi),
     BinaryProvider.Windows(:i686, :blank_libc, :blank_abi),
     BinaryProvider.Windows(:x86_64, :blank_libc, :blank_abi)
 ]
 
 # The products that we will ensure are always built
 products(prefix) = [
-    LibraryProduct(prefix, "libarpack", :ARPACK)
+    LibraryProduct(prefix, "libarpack", :Arpack)
 ]
 
 # Dependencies that must be installed before this package can be built
