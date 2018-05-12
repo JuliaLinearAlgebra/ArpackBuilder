@@ -40,7 +40,7 @@ platforms = [
 #    BinaryProvider.Linux(:x86_64, :musl, :blank_abi),
 #    BinaryProvider.Linux(:aarch64, :musl, :blank_abi),
 #    BinaryProvider.Linux(:armv7l, :musl, :eabihf),
-#    BinaryProvider.MacOS(:x86_64, :blank_libc, :blank_abi),
+    BinaryProvider.MacOS(:x86_64, :blank_libc, :blank_abi),
     BinaryProvider.Windows(:i686, :blank_libc, :blank_abi),
     BinaryProvider.Windows(:x86_64, :blank_libc, :blank_abi)
 ]
@@ -52,7 +52,7 @@ products(prefix) = [
 
 # Dependencies that must be installed before this package can be built
 dependencies = [
-    "https://github.com/staticfloat/OpenBLASBuilder/releases/download/v0.2.20-6/build.jl"         
+    "https://github.com/staticfloat/OpenBLASBuilder/releases/download/v0.2.20-6/build.jl"
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
