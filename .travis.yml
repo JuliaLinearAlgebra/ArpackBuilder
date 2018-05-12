@@ -20,9 +20,7 @@ sudo: required
 # Before anything else, get the latest versions of things
 before_script:
   - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
-  # Temporarily use fork until https://github.com/JuliaPackaging/BinaryBuilder.jl/pull/243/files has been merged
-  # - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
-  - julia -e 'Pkg.clone("https://github.com/andreasnoack/BinaryBuilder.jl"); Pkg.build()'
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
 
 script:
   - julia build_tarballs.jl
