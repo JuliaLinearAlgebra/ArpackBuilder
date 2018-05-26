@@ -16,27 +16,18 @@ env:
     - BINARYBUILDER_DOWNLOADS_CACHE=downloads
     - BINARYBUILDER_AUTOMATIC_APPLE=true
 sudo: required
-
-# Before anything else, get the latest versions of things
 before_script:
   - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryProvider.jl")'
-  # Temporarily use fork until https://github.com/JuliaPackaging/BinaryBuilder.jl/pull/243/files has been merged
-  # - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
-  - julia -e 'Pkg.clone("https://github.com/andreasnoack/BinaryBuilder.jl"); Pkg.build()'
-
+  - julia -e 'Pkg.clone("https://github.com/JuliaPackaging/BinaryBuilder.jl"); Pkg.build()'
 script:
   - julia build_tarballs.jl
-
-
 deploy:
-    provider: releases
-    api_key:
-        # Note; this api_key is only valid for ViralBShah/ArpackBuilder; you need
-        # to make your own: https://docs.travis-ci.com/user/deployment/releases/
-        secure: ohJG2TKUde9UiZb658XfSnKDuJoJyywD0cp7ht6HDZI9yCJcDgR+NyQ1o+uVaOo0sBC5P0Ct7mTjeaUoWhlHzPTM303SIpSl7oIMiG23zkHZPKjBmhAMcjemJWYJ54GpnUMn9kpP4Ip+Olt2DTV2PsAepLQqpLy2xqWN32NWKlCZy8kIOUiJCP4L6xKQwq+AKhfW1P2N/DPvf8eukaL9Y/XznmnQHJtGzvjhzhfQqTK+Hr1xQIYvQ5LvI92bKhId4GaxUWcNwEY3eLjKPGC+9BqgUEaLlvh/mLPecgozot4/70DnPXfW1q1dfn7kSGGAhXvBbenL3htOvdOA+tmAS9XSYVSqoYzKKBOwvUn00ynweCCJEKVGbglxXCVs6sdaAz6TY17MdsMGXEpHdNP34BV4SfAOKle+qglwcVHQRQTxh8xS4odV3f3Rq/AfcZhS7gHfpDw6Mp6pyHXARxWafCNvA2QxGG/vyN2HgunYNgIwStCFx24XpAChtcQTItj8FoLSWzIlDu5E99ZVXoWsUVLlxJIQO+t501cqvRePqjoXtQnfxkE3wghMWSlPp84rnkbw3FoRbf9kyDRtcz5GJV4MgoqD3aXtP68ccDvTKPboB2oge31ptjW0N8vcAowAXRPaUiWWhLSPiVUe9oyfYK5uE0ROVGFdXsXmy7J3IPU=
-    file_glob: true
-    file: products/*
-    skip_cleanup: true
-    on:
-        repo: ViralBShah/ArpackBuilder
-        tags: true
+  provider: releases
+  api_key:
+    secure: NJBvJXoRWadXYgQpJRXw2zabRjmUJHAIoo2a568aVZmnwzU0MOiqEiwQdrqFVqnVjG3mdLrpmIHZrHQ84lLnEO8uE2L5CT8TDcMsqD9nejbgQc6s8JPn9roeWdRDXAtVgvn6zclCCC/FRBFSr/rMllQ+Lf2Au5ucDJwxT8umy62w96x19xqAoj24kcVar/lW8/8LW/5tdVJ/NzEXncqpQvsWl5LNR1t4pJ+h3F0ntKLZ0D/cHaqusSF97tsreJxoabNgp0muAfJyUCVKdHP0Vh+R7QhJlrojkzRAaB4hQ3NtmZBGt7Lql9tC2IzngR/eXAfzqPQ/h7sf2cBWV5/bm3eV3s/eWeL0jAY9f8U5MTGn5POFGw6TVyducw2vQPVTIcSS7FQNBPik9kN+lzQLuVxP61ZeDrnMwDwREq28Axe1zWVURJxKAHj9ZziW3aGMnZDCjol6CsyY7mRbQAHydy3NTYrvWBAn9or5KinyeOPL8TK43yrcPjlUg0XGd/5tEdsZ7ZaMSnOpFZcVznhHApJWqb7Q/ml+01cJ4JFSvqzYTnYhN4B65OMSSYqRKC01iwwxAU9S2nlPWmCrPl/fx9wxJZMY2WjhnSooDHJ+5qLKuoE0xMllRQCCuBFad+2R7xvDDaNjn7nVrZvv8Z7HjSED2aBI6tP1BjZ/Fq8PoMg=
+  file_glob: true
+  file: products/*
+  skip_cleanup: true
+  on:
+    repo: JuliaLinearAlgebra/ArpackBuilder
+    tags: true
