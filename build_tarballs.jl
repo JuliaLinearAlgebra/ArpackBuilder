@@ -26,6 +26,13 @@ fi
 
 make install
 
+# For now, we'll have to adjust the name of the OpenBLAS library on macOS.
+# Eventually, this should be fixed upstream
+if [[ ${target} == "x86_64-apple-darwin14" ]]; then
+    echo "-- Modifying library name for OpenBLAS"
+    install_name_tool -change libopenblas64_.0.2.20.dylib @rpath/libopenblas64_.dylib ${prefix}/lib/libarpack.2.0.0.dylib
+fi
+
 """
 
 # These are the platforms we will build for by default, unless further
