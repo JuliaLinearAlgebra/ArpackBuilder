@@ -49,7 +49,8 @@ platforms = [
 #    BinaryProvider.Linux(:armv7l, :musl, :eabihf),
     BinaryProvider.MacOS(:x86_64, :blank_libc, :blank_abi),
     BinaryProvider.Windows(:i686, :blank_libc, :blank_abi),
-    BinaryProvider.Windows(:x86_64, :blank_libc, :blank_abi)
+    BinaryProvider.Windows(:x86_64, :blank_libc, :blank_abi),
+    BinaryProvider.FreeBSD(:x86_64, :blank_libc, :blank_abi),
 ]
 
 # The products that we will ensure are always built
