@@ -1,10 +1,11 @@
 using BinaryBuilder
 
 # Collection of sources required to build ArpackBuilder
+name = "ArpackBuilder"
+version = v"3.5.0-1"
 sources = [
     "https://github.com/opencollab/arpack-ng.git" =>
     "b095052372aa95d4281a645ee1e367c28255c947",
-
 ]
 
 
@@ -30,28 +31,14 @@ make install
 # Eventually, this should be fixed upstream
 if [[ ${target} == "x86_64-apple-darwin14" ]]; then
     echo "-- Modifying library name for OpenBLAS"
-    install_name_tool -change libopenblas64_.0.2.20.dylib @rpath/libopenblas64_.dylib ${prefix}/lib/libarpack.2.0.0.dylib
+    install_name_tool -change libopenblas64_.0.3.0.dylib @rpath/libopenblas64_.dylib ${prefix}/lib/libarpack.2.0.0.dylib
 fi
 
 """
 
 # These are the platforms we will build for by default, unless further
 # platforms are passed in on the command line
-platforms = [
-    BinaryProvider.Linux(:i686, :glibc, :blank_abi),
-    BinaryProvider.Linux(:x86_64, :glibc, :blank_abi),
-    BinaryProvider.Linux(:aarch64, :glibc, :blank_abi),
-    BinaryProvider.Linux(:armv7l, :glibc, :eabihf),
-#    BinaryProvider.Linux(:powerpc64le, :glibc, :blank_abi),
-#    BinaryProvider.Linux(:i686, :musl, :blank_abi),
-#    BinaryProvider.Linux(:x86_64, :musl, :blank_abi),
-#    BinaryProvider.Linux(:aarch64, :musl, :blank_abi),
-#    BinaryProvider.Linux(:armv7l, :musl, :eabihf),
-    BinaryProvider.MacOS(:x86_64, :blank_libc, :blank_abi),
-    BinaryProvider.Windows(:i686, :blank_libc, :blank_abi),
-    BinaryProvider.Windows(:x86_64, :blank_libc, :blank_abi),
-    BinaryProvider.FreeBSD(:x86_64, :blank_libc, :blank_abi),
-]
+platforms = supported_platforms()
 
 # The products that we will ensure are always built
 products(prefix) = [
@@ -60,9 +47,9 @@ products(prefix) = [
 
 # Dependencies that must be installed before this package can be built
 dependencies = [
-    "https://github.com/staticfloat/OpenBLASBuilder/releases/download/v0.2.20-7/build.jl"
+    "https://github.com/JuliaLinearAlgebra/OpenBLASBuilder/releases/download/v0.3.0-1/build_OpenBLAS.v0.3.0.jl"
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
-build_tarballs(ARGS, "ArpackBuilder", sources, script, platforms, products, dependencies)
+build_tarballs(ARGS, name, version, sources, script, platforms, products, dependencies)
 
