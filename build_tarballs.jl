@@ -23,7 +23,7 @@ cd arpack-build
 # arpack tests require finding libgfortran when linking with C linkers,
 # and gcc doesn't automatically add that search path.  So we do it for it.
 EXE_LINK_FLAGS="${LDFLAGS}"
-if [[ $CC == *gcc* ]]; then
+if [[ ${target} != *darwin* ]]; then
     EXE_LINK_FLAGS="${EXE_LINK_FLAGS} -Wl,-rpath-link,/opt/${target}/${target}/lib -Wl,-rpath-link,/opt/${target}/${target}/lib64"
 fi
 
@@ -81,7 +81,7 @@ fi
 # platforms are passed in on the command line.  We enable the full
 # combinatorial explosion of GCC versions because this package most
 # definitely links against libgfortran.
-platforms = expand_gcc_versions(supported_platforms())
+platforms = expand_gcc_versions([p for p in supported_platforms() if !(typeof(p) <: FreeBSD)])
 
 # The products that we will ensure are always built
 products(prefix) = [
