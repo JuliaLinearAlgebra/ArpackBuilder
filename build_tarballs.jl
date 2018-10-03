@@ -81,7 +81,7 @@ fi
 # platforms are passed in on the command line.  We enable the full
 # combinatorial explosion of GCC versions because this package most
 # definitely links against libgfortran.
-platforms = expand_gcc_versions([p for p in supported_platforms() if !(typeof(p) <: FreeBSD)])
+platforms = expand_gcc_versions(supported_platforms())
 
 # The products that we will ensure are always built
 products(prefix) = [
@@ -90,7 +90,7 @@ products(prefix) = [
 
 # Dependencies that must be installed before this package can be built
 dependencies = [
-    "https://github.com/JuliaLinearAlgebra/OpenBLASBuilder/releases/download/v0.3.0-2/build_OpenBLAS.v0.3.0.jl"
+    "https://github.com/JuliaLinearAlgebra/OpenBLASBuilder/releases/download/v0.3.0-3/build_OpenBLAS.v0.3.0.jl"
 ]
 
 # Build the tarballs, and possibly a `build.jl` as well.
