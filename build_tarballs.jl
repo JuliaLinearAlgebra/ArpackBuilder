@@ -4,18 +4,18 @@
 ENV["BINARYBUILDER_USE_CCACHE"] = "false"
 using BinaryBuilder
 
-# Collection of sources required to build ArpackBuilder
-name = "ArpackBuilder"
-version = v"3.5.0-2"
+# Collection of sources required to build Arpack
+name = "Arpack"
+version = v"3.5.0-3"
 sources = [
     "https://github.com/opencollab/arpack-ng.git" =>
-    "f532cc06a164a5e9f5ba7e05d1b5ad415a6fdc47",
+    "b095052372aa95d4281a645ee1e367c28255c947",
+    #"f532cc06a164a5e9f5ba7e05d1b5ad415a6fdc47",
 ]
 
 
 # Bash recipe for building across all platforms
 script = raw"""
-
 cd $WORKSPACE/srcdir
 mkdir arpack-build
 cd arpack-build
@@ -73,7 +73,7 @@ make install VERBOSE=1
 # Eventually, this should be fixed upstream
 if [[ ${target} == "x86_64-apple-darwin14" ]]; then
     echo "-- Modifying library name for OpenBLAS"
-    install_name_tool -change libopenblas64_.0.3.0.dylib @rpath/libopenblas64_.dylib ${prefix}/lib/libarpack.2.0.0.dylib
+    install_name_tool -change libopenblas64_.0.3.0.dev.dylib libopenblas64_.dylib ${prefix}/lib/libarpack.2.0.0.dylib
 fi
 """
 
