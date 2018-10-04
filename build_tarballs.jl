@@ -85,7 +85,7 @@ platforms = expand_gcc_versions(supported_platforms())
 
 # The products that we will ensure are always built
 products(prefix) = [
-    LibraryProduct(prefix, "libarpack", :Arpack)
+    LibraryProduct(prefix, "libarpack", :libarpack)
 ]
 
 # Dependencies that must be installed before this package can be built
